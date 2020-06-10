@@ -1,0 +1,33 @@
+<h2>1. 간단한 반복문으로 리스트 각 요소들 출력</h2>
+{% for data in my_list %}
+  <p>{{ data }}</p>
+{% endfor %}
+<hr>
+<h2>2. if, else 활용해서 문자열 비교</h2>
+{% if my_string == my_str %}
+  <p>{{ my_string }}</p>
+{% else %}
+  <p>간단한 문자열이 아닌데, {{ my_str }}</p>
+{% endif %}
+<hr>
+<h2>3. if, elif, else 사용해보기</h2>
+{% if my_str|length <= 5 %}
+  <p>short</p>
+{% elif my_str|length >= 10 %}
+  <p>long</p>
+{% else %}
+  <p>적당</p>
+{% endif %}
+<hr>
+<h2>보너스 라운드</h2>
+{% for data in my_list %}
+  {% if data >= 90 %}
+    <p>A</p>
+  {% elif data >= 50 %}
+    <p>B</p>
+  {% else %}
+    <p>C</p>
+  {% endif %}
+{% endfor %}
+
+
