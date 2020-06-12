@@ -6,3 +6,5 @@
 * 장고로 사이트 만들기 기초
 * 장고를 사용하여 HTML 작성해보기
 * Django Template Language 사용 실습
+## [form](./day04)
+* 
