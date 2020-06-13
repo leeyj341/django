@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}
+  아스키 아트
+{% endblock %}
+{% block body %}
+<h1>로또 구매 횟수</h1>
+<form action="{% url 'lotto' %}" method="get">
+  <label for="lotto">구매할 횟수: </label>
+  <input type="text" name="count" id="lotto">
+  <input type="submit" value="구매">
+</form>
+{% endblock %}

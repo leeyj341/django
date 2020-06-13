@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+<!-- spring처럼 정적 파일 불러오기 -->
+{% load static %}
+{% block body %}
+  <img src="{% static '/secondapp/images/공유.jpg' %}" alt="공유가 총 쏘는 사진">
+{% endblock %}

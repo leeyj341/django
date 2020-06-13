@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}
+  아스키 아트
+{% endblock %}
+{% block body %}
+<h1>페이지 만들기 복습</h1>
+<ol>
+  {% for num in nums %}
+    <li>{{num}}</li>
+  {% endfor %}
+</ol>
+{% endblock %}
