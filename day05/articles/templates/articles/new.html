@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block body %}
+  <form action="{% url 'articles:create' %}" method="get">
+    <label for="la_title"> 글 제목 : </label>
+    <input type="text" name="title" id="la_title">
+    <label for="la_content">글 내용 : </label>
+    <input type="text" name="content" id="la_content">
+    <input type="submit" value="등록">
+  </form>
+{% endblock %}
