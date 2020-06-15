@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block body %}
   <h1>글 작성 결과</h1>
+  <hr>
   <table style="width: 400px; height: 100px;">
     <tr>
       <th style="border: 1px solid black;">제목</th>
@@ -11,4 +12,5 @@
       <td style="border: 1px solid black;">{{content}}</td>
     </tr>
   </table>
+  <a href="{% url 'articles:index' %}">back</a>
 {% endblock %}

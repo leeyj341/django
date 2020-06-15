@@ -24,3 +24,10 @@ def create(request) :
     }
     
     return render(request, 'articles/create.html', context)
+
+def introduce(request) :
+    context = {
+        'name' : '이영주', 
+        'age' : '28'
+    }
+    return render(request, 'articles/introduce.html', context)

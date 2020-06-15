@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block body %}
+  <h1>INTRO</h1>
+  <hr>
+  <p>{{name}}</p>
+  <p>{{age}}</p>
+  <a href="{% url 'articles:index' %}">back</a>
+{% endblock %}

@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
 {% block body %}
-<h1>전체 게시글</h1>
+<h1>게시판</h1>
+<hr>
+<a href="{%url 'articles:new'%}">NEW</a>
+<br>
+<a href="{% url 'articles:introduce' %}">INTRO</a>
 {% endblock %}
