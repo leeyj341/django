@@ -2,7 +2,14 @@
 {% block body %}
 <h1>게시판</h1>
 <hr>
-<a href="{%url 'articles:new'%}">NEW</a>
+{% for article in articles %}
+<h4>{{article.pk}}번째 글</h4>
+<h5><a href="{% url 'articles:detail' article.pk %}" >{{article.title}}</a></h5>
+<h6><a href="{% url 'articles:delete' article.pk %}">삭제</a></h6>
+<hr>
+{% endfor %}
+<hr>
+<a href="{% url 'articles:new' %}">NEW</a>
 <br>
 <a href="{% url 'articles:introduce' %}">INTRO</a>
 {% endblock %}

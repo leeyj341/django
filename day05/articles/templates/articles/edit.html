@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block body %}
+<h1>글 수정</h1>
+<hr>
+<form action="{% url 'articles:update' article.pk %}" method="POST">
+  {% csrf_token %}
+  <label for="la_t">글 제목 : </label>
+  <input type="text" name="title" id="la_t" value="{{article.title}}">
+  <label for="la_c">글 내용 : </label>
+  <input type="text" name="content" id="la_c" value="{{article.content}}">
+  <br>
+  <input type="submit" value="수정" style="width: 150px; margin: 10px 80px;">
+</form>
+{% endblock %}

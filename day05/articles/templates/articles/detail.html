@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block body %}
+<h1>글 세부 정보</h1>
+<hr>
+<h3>{{article.pk}}</h3>
+<p>작성 시간: {{article.created_at}}</p>
+<h4>글 제목 : {{article.title}}</h4>
+<h5>글 내용 : {{article.content}}</h5>
+<hr>
+<h6><a href="{% url 'articles:edit' article.pk %}">수정</a></h6>
+<a href="{% url 'articles:index' %}">BACK</a>
+{% endblock %}

@@ -2,7 +2,9 @@
 {% block body %}
   <h1>글 작성 페이지</h1>
   <hr>
-  <form action="{% url 'articles:create' %}" method="get">
+  <form action="{% url 'articles:create' %}" method="POST">
+    {# 사이트 간 요청 위조 #}
+    {% csrf_token %}
     <label for="la_title"> 글 제목 : </label>
     <input type="text" name="title" id="la_title">
     <br>
