@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block css %}
+<link rel="stylesheet" href="{% static '/movies/css/create.css' %}">
+{% endblock %}
+{% block body %}
+<div class="top-div">
+  <h1>영화 정보 등록</h1>
+</div>
+<form action="{% url 'movies:create' %}" method="post">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+
+  <div class="col-12">
+    <input type="submit" value="등록" class="submit-btn">
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static '/movies/css/list.css' %}">
+{% endblock %}
+{% block body %}
+<div class="top-div">
+  <div class="col-2">
+    <h1>MOVIES</h1>
+  </div>
+  <div class="col-2">
+    <input class="create-btn" type="button" value="새 영화 등록" onclick="location.href='/movies/create'">
+  </div>
+</div>
+{% for movie in movies %}
+<div class="col-12 movie-list"> 
+  <div class="col-1">
+    <img src="{{movie.poster_url}}" alt="">
+  </div>
+  <div class="col-4"><a href="{% url 'movies:info' movie.pk %}">{{movie.title}}</a></div>
+  <div class="col-6">{{movie.score}}</div>
+</div>
+{% endfor %}
+{% endblock %}

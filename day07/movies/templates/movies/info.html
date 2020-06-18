@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static '/movies/css/info.css' %}">
+{% endblock %}
+{% block body %}
+<div class="top-div">
+  <h1>{{movie.title}}</h1>
+</div>
+<div class="row row-line">
+  <div class="col-4">
+    <img src="{{movie.poster_url}}" alt="">
+  </div>
+  <div class="col-8 info-line">
+    <div class="col-5">영어 제목</div>
+    <div class="col-6">{{movie.title_en}}</div>
+    <div class="col-5">동원 관객 수</div>
+    <div class="col-6">{{movie.audience}}</div>
+    <div class="col-5">개봉일자</div>
+    <div class="col-6">{{movie.open_date}}</div>
+    <div class="col-5">장르</div>
+    <div class="col-6">{{movie.genre}}</div>
+    <div class="col-5">상영 등급</div>
+    <div class="col-6">{{movie.watch_grade}}</div>
+    <div class="col-5">평점</div>
+    <div class="col-6">{{movie.score}}</div>
+    <div class="col-5">요약</div>
+    <div class="col-6">{{movie.description}}</div>
+  </div>
+</div>
+<div class="row btn-row">
+  <div class="col-1">
+    <input class="btn" type="button" value="목록" onclick="location.href='/movies/'">
+  </div>
+  <div class="col-1">
+    <input class="btn" type="button" value="수정" onclick="location.href='/movies/{{movie.pk}}/edit'">
+  </div>
+  <div class="col-1">
+    <input class="btn" type="button" value="삭제" onclick="location.href='/movies/{{movie.pk}}/delete'">
+  </div>
+</div>
+
+{% endblock %}
