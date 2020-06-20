@@ -21,19 +21,13 @@ body {
 }
 
 .info-line > div {
-    display: inline-block;
     border-bottom: 2px solid rgba(0, 114, 85, 0.5);
     margin-bottom: 20px;
 }
 
-/* .info-line > div:last-child {
-} */
-
-.info-line > input {
-    border: 0.1;
-    width: auto;
-    border-color: rgba(209, 209, 209, 0.5);
-    border-radius: 2%;
+.info-line > div:last-child > div:last-child {
+    max-height: 250px;
+    overflow-y: scroll;
 }
 
 img {

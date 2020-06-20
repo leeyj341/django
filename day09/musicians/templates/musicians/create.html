@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>create</title>
+</head>
+<body>
+  <h1>글 생성</h1>
+  <hr>
+  <!-- action을 비워두면 현재 위치로 요청 -->
+  <!-- 차이점 : method를 지정해준 것과 안해준 것의 차이 -->
+  <form action="" method="POST">
+    {% csrf_token %}
+    {# views에서 context에 담아 넘겨준 form #}
+    {{form}}
+    <input type="submit" value="제출">
+  </form>
+</body>
+</html>

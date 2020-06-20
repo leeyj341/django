@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>detail</title>
+</head>
+<body>
+  <h1>상세 페이지</h1>
+  <hr>
+  <h1>{{musician}}</h1>
+  <hr>
+  <p>{{musician.name}}</p>
+  <p>{{musician.age}}</p>
+  <hr>
+  <button><a href="{% url 'musicians:index' %}">목록</a></button>
+  <button><a href="{% url 'musicians:edit' musician.pk %}">수정</a></button>
+  <button><a href="{% url 'musicians:delete' musician.pk %}">삭제</a></button>
+</body>
+</html>
