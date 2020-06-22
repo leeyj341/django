@@ -7,4 +7,4 @@
 * 장고를 사용하여 HTML 작성해보기
 * Django Template Language 사용 실습
 ## [form](./day04)
-* 
+* form태그를 사용해 페이지 이동하기
