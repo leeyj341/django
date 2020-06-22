@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Article
-from .forms import ArticleForm
+from .models import Article, Comment
+from .forms import ArticleForm, CommentForm
 
 # Create your views here.
 def index(request):
@@ -12,8 +12,12 @@ def index(request):
 
 def detail(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
+    comments = Comment.objects.filter(article_id=article_pk)
+    comment_form = CommentForm()
     context = {
-        'article': article
+        'article': article,
+        'comment_form': comment_form,
+        'comments': comments
     }
     return render(request, 'articles/detail.html', context)
 
@@ -50,5 +54,19 @@ def delete(request, article_pk):
         article.delete()
         return redirect('articles:index')
     return redirect('articles:detail', article.pk)
+
+def createReply(request, article_pk):
+    form = CommentForm(request.POST)
+    if form.is_valid() :
+        comment = form.save(commit=False)
+        comment.article_id = article_pk
+        comment.save()
+    return redirect('articles:detail', article_pk)
+
+def deleteReply(request, comment_pk):
+    comment = Comment.objects.get(pk=comment_pk)
+    article_pk = comment.article_id
+    comment.delete()
+    return redirect('articles:detail', article_pk)
 
 
