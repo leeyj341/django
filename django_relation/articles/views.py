@@ -12,7 +12,8 @@ def index(request):
 
 def detail(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
-    comments = Comment.objects.filter(article_id=article_pk)
+    # 1은 N을 보장할 수 없기 때문에 QuerySet(comment_set)형태로 조회해야 한다.
+    comments = article.comment_set.all()
     comment_form = CommentForm()
     context = {
         'article': article,
@@ -55,18 +56,25 @@ def delete(request, article_pk):
         return redirect('articles:index')
     return redirect('articles:detail', article.pk)
 
-def createReply(request, article_pk):
-    form = CommentForm(request.POST)
-    if form.is_valid() :
-        comment = form.save(commit=False)
-        comment.article_id = article_pk
-        comment.save()
+def comment_create(request, article_pk):
+    article = get_object_or_404(Article, pk=article_pk)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid() :
+            comment = form.save(commit=False)
+            comment.article_id = article_pk
+            comment.save()
+            return redirect('articles:detail', article_pk)
+        else:
+            context = {
+                'form' : form,
+                'article' : article
+            }
+
+    return redirect('article:detail', context)
+
+def comment_delete(request, article_pk, comment_pk):
+    comment = get_object_or_404(Comment, pk=comment_pk)
+    if request.method == 'POST':
+        comment.delete()
     return redirect('articles:detail', article_pk)
-
-def deleteReply(request, comment_pk):
-    comment = Comment.objects.get(pk=comment_pk)
-    article_pk = comment.article_id
-    comment.delete()
-    return redirect('articles:detail', article_pk)
-
-
