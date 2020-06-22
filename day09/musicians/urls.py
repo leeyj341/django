@@ -13,4 +13,6 @@ urlpatterns=[
     path('<int:musician_pk>/', views.detail, name="detail"),
     path('<int:pk>/delete/', views.delete, name="delete"),
     path('<int:pk>/edit/', views.edit, name="edit"),
+    path('<int:musician_pk>/create_album/', views.create_album, name="create_album"),
+    path('<int:musician_pk>/delete_album/<int:album_pk>/', views.delete_album, name="delete_album"),
 ]

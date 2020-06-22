@@ -10,3 +10,8 @@ class Musician(models.Model):
     # 인스턴스 호출 시 출력 내용 덮어쓰기(=toString())
     def __str__(self):
         return f'{self.name} : {self.age}'
+
+class Album(models.Model):
+    musician = models.ForeignKey(to=Musician, on_delete=models.CASCADE)
+    title = models.CharField(max_length=150)
+    release_date = models.DateField()

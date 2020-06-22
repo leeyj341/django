@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.http import require_POST
 from .models import Article, Comment
 from .forms import ArticleForm, CommentForm
 
@@ -49,32 +50,30 @@ def update(request, article_pk):
     }
     return render(request, 'articles/form.html', context)
 
+@require_POST
 def delete(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
-    if request.method == "POST":
-        article.delete()
-        return redirect('articles:index')
-    return redirect('articles:detail', article.pk)
+    article.delete()
+    return redirect('articles:index')
 
+@require_POST
 def comment_create(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid() :
-            comment = form.save(commit=False)
-            comment.article_id = article_pk
-            comment.save()
-            return redirect('articles:detail', article_pk)
-        else:
-            context = {
-                'form' : form,
-                'article' : article
-            }
-
+    form = CommentForm(request.POST)
+    if form.is_valid() :
+        comment = form.save(commit=False)
+        comment.article_id = article_pk
+        comment.save()
+        return redirect('articles:detail', article_pk)
+    else:
+        context = {
+            'form' : form,
+            'article' : article
+        }
     return redirect('article:detail', context)
 
+@require_POST
 def comment_delete(request, article_pk, comment_pk):
     comment = get_object_or_404(Comment, pk=comment_pk)
-    if request.method == 'POST':
-        comment.delete()
+    comment.delete()
     return redirect('articles:detail', article_pk)

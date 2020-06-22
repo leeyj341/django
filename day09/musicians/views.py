@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from .forms import MusicianForm
-from .models import Musician
+from django.views.decorators.http import require_POST
+from .forms import MusicianForm, AlbumForm
+from .models import Musician, Album
 
 # Create your views here.
 def index(request):
@@ -37,8 +38,12 @@ def create(request):
 # 함수이름(urls에 작성한 변수명)
 def detail(request, musician_pk):
     musician = Musician.objects.get(pk=musician_pk)
+    albums = Album.objects.filter(musician_id=musician_pk)
+    album_form = AlbumForm()
     context = {
-        'musician' : musician
+        'musician' : musician,
+        'albums' : albums,
+        'album_form' : album_form
     }
     return render(request, 'musicians/detail.html', context)
 
@@ -56,6 +61,20 @@ def edit(request, pk):
     }
     return render(request, 'musicians/edit.html', context)
 
+@require_POST
 def delete(request, pk):
     Musician.objects.get(pk=pk).delete()
     return redirect('musicians:index')
+
+@require_POST
+def create_album(request, musician_pk):
+    form = AlbumForm(request.POST)
+    album = form.save(commit=False)
+    album.musician_id = musician_pk
+    album.save()
+    return redirect('musicians:detail', musician_pk)
+
+@require_POST
+def delete_album(request, musician_pk, album_pk):
+    Album.objects.get(pk=album_pk).delete()
+    return redirect('musicians:detail', musician_pk)

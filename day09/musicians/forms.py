@@ -1,6 +1,6 @@
 # 장고에서 미리 정의해둔 forms 받아오기
 from django import forms
-from .models import Musician
+from .models import Musician, Album
 
 # 클래스 정의
 class MusicianForm(forms.ModelForm):
@@ -10,4 +10,9 @@ class MusicianForm(forms.ModelForm):
         model = Musician
         # 모델에 있는 모든 필드 불러오기...
         fields = '__all__'
+
+class AlbumForm(forms.ModelForm):
+    class Meta:
+        model = Album
+        exclude = ['musician']
 

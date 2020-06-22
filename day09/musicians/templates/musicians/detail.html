@@ -15,6 +15,30 @@
   <hr>
   <button><a href="{% url 'musicians:index' %}">목록</a></button>
   <button><a href="{% url 'musicians:edit' musician.pk %}">수정</a></button>
-  <button><a href="{% url 'musicians:delete' musician.pk %}">삭제</a></button>
+  <form action="{% url 'musicians:delete' musician.pk %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="삭제">
+  </form>
+  <hr>
+  <h2>발매된 앨범 정보</h2>
+  <hr>
+  <ul>
+    {% for album in albums %}
+    <li>
+      {{album.musician.name}} - {{album.title}}
+      <form action="{% url 'musicians:delete_album' musician.pk album.pk %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="삭제">
+      </form>
+    </li>
+    {% empty %}
+      <p>앨범이 없습니다.</p>
+    {% endfor %}
+  </ul>
+  <form action="{% url 'musicians:create_album' musician.pk %}" method="post">
+    {% csrf_token %}
+    {{album_form}}
+    <input type="submit" value="앨범 등록">
+  </form>
 </body>
 </html>
