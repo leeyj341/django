@@ -2,12 +2,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from .models import Article, Comment
 from .forms import ArticleForm, CommentForm
+from IPython import embed
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
+    # embed()
     articles = Article.objects.all()
     context = {
-        'articles': articles
+        'articles': articles,
     }
     return render(request, 'articles/index.html', context)
 
@@ -23,8 +26,9 @@ def detail(request, article_pk):
     }
     return render(request, 'articles/detail.html', context)
 
+@login_required
 def create(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = ArticleForm(request.POST)
         if form.is_valid():
             article = form.save()
@@ -36,9 +40,10 @@ def create(request):
     }
     return render(request, 'articles/form.html', context)
 
+@login_required
 def update(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
-    if request.method == "POST":
+    if request.method == 'POST':
         form = ArticleForm(request.POST, instance=article)
         if form.is_valid():
             article = form.save()
@@ -50,12 +55,14 @@ def update(request, article_pk):
     }
     return render(request, 'articles/form.html', context)
 
+@login_required
 @require_POST
 def delete(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
     article.delete()
     return redirect('articles:index')
 
+@login_required
 @require_POST
 def comment_create(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
@@ -72,6 +79,7 @@ def comment_create(request, article_pk):
         }
     return redirect('article:detail', context)
 
+@login_required
 @require_POST
 def comment_delete(request, article_pk, comment_pk):
     comment = get_object_or_404(Comment, pk=comment_pk)
