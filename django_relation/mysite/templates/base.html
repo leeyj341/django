@@ -9,6 +9,11 @@
 </head>
 <body>
   <div class="container">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags}}">{{ message.message }}</div>
+      {% endfor %}
+    {% endif %}
     {% if user.is_authenticated %}
       <h1 style="float: right;">Hi! {{ user.username }}</h1>
       <button><a href="{% url 'accounts:logout' %}">로그아웃</a></button>
