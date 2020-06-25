@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'modelrelation',
     'accounts',
     'articles',
     'django_extensions',
@@ -129,3 +130,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# get_user_model -> 객체를 반환
+# AUTH_USER_MODEL -> String값을 반환
+# models에 객체를 참조할 때 get_user_model을 사용하는 경우
+# INSTALLED_APPS 정의 순서에 따라 accounts가 위에 있으면 문제가 발생하지 않지만
+# 반대의 경우 get_user_model이 가르키는 객체가 accounts.User가 아니라 
+# 기본 User 객체이기 때문에 문제가 발생한다.
+# 따라서, models에 User 객체를 참조하는 경우 AUTH_USER_MODEL을 쓰는 게 정신건강에 이롭다.
+
+# ★☆ model을 정의할 때는 꼭 AUTH_USER_MODEL 사용하기 ☆★
+AUTH_USER_MODEL = 'accounts.User'

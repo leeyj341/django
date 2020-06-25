@@ -31,6 +31,16 @@ class Article(models.Model):
         to=settings.AUTH_USER_MODEL, 
         on_delete=models.CASCADE,
     )
+    like_users = models.ManyToManyField(
+        to=settings.AUTH_USER_MODEL, 
+        related_name='like_articles',
+        blank=True
+    )
+    recommenders = models.ManyToManyField(
+        to=settings.AUTH_USER_MODEL,
+        related_name='recommend_articles',
+        blank=True
+    )
 
     def __str__(self):
         return f"{self.pk}번째 글, {self.title} - {self.content}"

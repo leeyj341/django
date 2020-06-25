@@ -1,0 +1,10 @@
+{% if user in article.like_users.all %}
+<a href="{% url 'articles:like' article.pk %}" style="display: inline-block;">
+  <i class="fas fa-heart fa-md text-danger"></i>
+</a>
+{% else %}
+<a href="{% url 'articles:like' article.pk %}" style="display: inline-block;">
+  <i class="far fa-heart fa-md text-danger"></i>
+</a>
+{% endif %}
+<p style="display: inline-block;">{{ article.like_users.all|length }}</p>

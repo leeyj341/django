@@ -1,16 +1,60 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block body %}
+  <style>
+    .fix-image {
+      width: 100%;
+      height: auto;
+      max-height: 300px;
+      object-fit: contain;
+    }
+    /* .responsive {
+    padding: 0 6px;
+    float: left;
+    width: 24.99999%;
+  }
+  
+  @media only screen and (max-width: 300px) {
+    .responsive {
+      width: 49.99999%;
+      margin: 6px 0;
+    }
+  }
+  
+  @media only screen and (max-width: 200px) {
+    .responsive {
+      width: 100%;
+    }
+  } */
+  </style>
 <!-- <p>{{username}}님 반갑습니다.</p> -->
+<div class="row responsive">
+
+  {% for article in articles %}
+  <div class="col-4">
+
+    <div class="card">
+      {% if article.image %}
+      <img src="{{ article.image_thumbnail.url }}" class="card-img-top fix-image" alt="{{article.image}}">
+      {% else %}
+      <img src="https://lh3.googleusercontent.com/proxy/rieiOjfQDAwiGPPCs1QYMcxS-IMx7IwQI_JU619-GQtM6B3BHT4KqESr4bWh-sdHQsvDPpNMGHto9Uf8VubMOYgmhOdF5vDpxQgenDDYfTBiWMC9JvT4jRZ0ipAf" class="card-img-top fix-image" alt="{{article.image}}">
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">{{ article.title }}</h5>
+        <p class="card-text">{{ article.user.username }}</p>
+        {% include 'articles/_like.html' %}
+        {% include 'articles/_comment.html' %}
+        <br>
+        <a href="{% url 'articles:detail' article.pk %}" class="btn btn-primary">DETAIL</a>
+      </div>
+    </div>
+    <!-- {% if user in article.recommenders.all %}
+      <a href="{% url 'articles:recommend' article.pk %}">추천 취소</a>
+      {% else %}
+      <a href="{% url 'articles:recommend' article.pk %}">추천</a>
+      {% endif %} -->
+    </div>
+      {% endfor %}
+  </div>
 <hr>
-<h1>메인 페이지 입니다.</h1>
-<hr>
-<a href="{% url 'articles:create' %}">[CREATE]</a>
-<hr>
-{% for article in articles %}
- <p>{{ article.pk }}번째 글</p>
- <p>{{ article.title }}</p>
- <p>작성자 : {{ article.user.username }}</p>
- <a href="{% url 'articles:detail' article.pk %}">[DETAIL]</a>
- <hr>
-{% endfor %}
 {% endblock %}
