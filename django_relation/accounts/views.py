@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from .forms import UserForm, CustomUserCreationForm
+from .models import User
 
 # Create your views here.
 def signup(request):
@@ -95,3 +96,16 @@ def profile(request, username):
         'person':person
     }
     return render(request, 'accounts/profile.html', context)
+
+def follow(request, user_pk):
+    follow_user = get_object_or_404(get_user_model(), pk=user_pk)
+    cur_user = request.user
+
+    if follow_user in cur_user.followings.all():
+        cur_user.followings.remove(follow_user)
+        follow_user.followers.remove(cur_user)
+    else:
+        cur_user.followings.add(follow_user)
+        follow_user.followers.add(cur_user)
+
+    return redirect('accounts:profile', follow_user.username)
